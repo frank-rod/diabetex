@@ -62,6 +62,56 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   });
 
+  /* ---------- Carousel ---------- */
+  const carousel = document.getElementById('pilaresCarousel');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  const indicatorsContainer = document.getElementById('carouselIndicators');
+
+  if (carousel && prevBtn && nextBtn && indicatorsContainer) {
+    const items = carousel.querySelectorAll('.pilar');
+    
+    // Create dots
+    items.forEach((_, index) => {
+      const dot = document.createElement('button');
+      dot.classList.add('carousel-dot');
+      if (index === 0) dot.classList.add('active');
+      dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+      
+      dot.addEventListener('click', () => {
+        const itemWidth = items[0].offsetWidth + 32; // item width + gap
+        carousel.scrollTo({
+          left: index * itemWidth,
+          behavior: 'smooth'
+        });
+      });
+      indicatorsContainer.appendChild(dot);
+    });
+
+    const dots = indicatorsContainer.querySelectorAll('.carousel-dot');
+
+    // Update dots on scroll
+    carousel.addEventListener('scroll', () => {
+      const itemWidth = items[0].offsetWidth + 32;
+      const scrollPos = carousel.scrollLeft;
+      const index = Math.round(scrollPos / itemWidth);
+      
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    });
+
+    prevBtn.addEventListener('click', () => {
+      const itemWidth = items[0].offsetWidth + 32;
+      carousel.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const itemWidth = items[0].offsetWidth + 32;
+      carousel.scrollBy({ left: itemWidth, behavior: 'smooth' });
+    });
+  }
+
   /* ---------- Language Toggle (ES ↔ EN) ---------- */
   let currentLang = 'es';
   const btnLang = document.getElementById('btnLang');

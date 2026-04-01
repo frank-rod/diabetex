@@ -525,15 +525,23 @@ h1, h2, h3, h4 {
   margin-bottom: 0.5rem;
 }
 
-.producto-card__body p {
+.producto-card__body p:not(.producto-card__price) {
   font-size: 0.85rem;
   opacity: 0.7;
   margin-bottom: 1.5rem;
   font-weight: 500;
 }
 
-.producto-card__body .btn {
+.producto-card__price {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #0D291B;
   margin-top: auto;
+}
+
+.producto-card__body .btn {
+  margin-top: 1rem;
 }
 
 /* ---------- Delivery Apps ---------- */
@@ -614,14 +622,29 @@ h1, h2, h3, h4 {
   background: #F7ECD5;
 }
 
-.pilares__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+.carousel-container {
+  position: relative;
+  max-width: 100%;
   margin-top: 3rem;
 }
 
+.pilares__carousel {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding-bottom: 1.5rem;
+}
+
+.pilares__carousel::-webkit-scrollbar {
+  display: none;
+}
+
 .pilar {
+  flex: 0 0 calc(33.333% - 1.34rem);
+  scroll-snap-align: start;
   background: #fff;
   padding: 2.5rem 2rem;
   border-radius: 20px;
@@ -629,6 +652,69 @@ h1, h2, h3, h4 {
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(13, 41, 27, 0.04);
   border: 1px solid rgba(13, 41, 27, 0.05);
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.carousel-btn {
+  background: #fff;
+  color: #0D291B;
+  border: 1px solid rgba(13, 41, 27, 0.1);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(13, 41, 27, 0.05);
+}
+
+.carousel-btn:hover {
+  background: #0D291B;
+  color: #F7ECD5;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(13, 41, 27, 0.15);
+}
+
+.carousel-indicators {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(13, 41, 27, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.carousel-dot.active {
+  background: #0D291B;
+  transform: scale(1.3);
+}
+
+@media (max-width: 992px) {
+  .pilar {
+    flex: 0 0 calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .pilar {
+    flex: 0 0 100%;
+  }
 }
 
 .pilar:hover {
@@ -762,6 +848,18 @@ h1, h2, h3, h4 {
   border-color: #0D291B;
   box-shadow: 0 0 0 4px rgba(13, 41, 27, 0.05);
   outline: none;
+}
+
+/* ---------- Mapa ---------- */
+.mapa {
+  line-height: 0;
+  background: #0D291B; /* En caso de que cargue, mantiene el color de fondo */
+}
+
+.mapa iframe {
+  width: 100%;
+  height: 450px;
+  display: block;
 }
 
 /* ---------- Footer ---------- */
