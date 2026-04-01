@@ -1,0 +1,3 @@
+color secundario o como para fondos: #F7ECD5 (es como un hueso)
+color principal: #0D291B
+
