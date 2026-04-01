@@ -536,6 +536,63 @@ h1, h2, h3, h4 {
   margin-top: auto;
 }
 
+/* ---------- Delivery Apps ---------- */
+.delivery-apps {
+  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.delivery-apps__content {
+  background: rgba(247, 236, 213, 0.05);
+  border: 1px solid rgba(247, 236, 213, 0.15);
+  border-radius: 24px;
+  padding: 2.5rem 4rem;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.delivery-apps__content h3 {
+  color: #F7ECD5;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.delivery-apps__logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.delivery-logo-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 60px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.delivery-logo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.delivery-logo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .productos__cta {
   text-align: center;
   margin-top: 4rem;
