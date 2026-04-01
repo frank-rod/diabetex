@@ -961,6 +961,21 @@ h1, h2, h3, h4 {
   transform: translateY(-2px);
 }
 
+.footer__delivery-logo {
+  background: #fff !important;
+  border-radius: 10px !important;
+  width: auto !important;
+  height: 40px !important;
+  padding: 6px 12px;
+}
+
+.footer__delivery-logo img {
+  height: 100%;
+  width: auto;
+  max-height: 28px;
+  object-fit: contain;
+}
+
 .footer__copy {
   font-size: 0.85rem;
   opacity: 0.5;

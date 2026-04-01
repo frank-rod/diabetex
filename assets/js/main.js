@@ -70,45 +70,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (carousel && prevBtn && nextBtn && indicatorsContainer) {
     const items = carousel.querySelectorAll('.pilar');
-    
+    let currentIndex = 0;
+
+    // Get gap from CSS
+    const getGap = () => parseFloat(getComputedStyle(carousel).gap) || 32;
+
+    // How many items visible at once
+    const getVisibleCount = () => {
+      const itemW = items[0].offsetWidth + getGap();
+      return Math.round(carousel.offsetWidth / itemW) || 1;
+    };
+
+    const scrollToIndex = (index) => {
+      const itemWidth = items[0].offsetWidth + getGap();
+      carousel.scrollTo({ left: index * itemWidth, behavior: 'smooth' });
+    };
+
     // Create dots
     items.forEach((_, index) => {
       const dot = document.createElement('button');
       dot.classList.add('carousel-dot');
       if (index === 0) dot.classList.add('active');
-      dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
-      
+      dot.setAttribute('aria-label', `Slide ${index + 1}`);
       dot.addEventListener('click', () => {
-        const itemWidth = items[0].offsetWidth + 32; // item width + gap
-        carousel.scrollTo({
-          left: index * itemWidth,
-          behavior: 'smooth'
-        });
+        currentIndex = index;
+        scrollToIndex(currentIndex);
       });
       indicatorsContainer.appendChild(dot);
     });
 
     const dots = indicatorsContainer.querySelectorAll('.carousel-dot');
 
-    // Update dots on scroll
+    const updateDots = (index) => {
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    };
+
+    // Update dots on manual scroll / swipe
     carousel.addEventListener('scroll', () => {
-      const itemWidth = items[0].offsetWidth + 32;
-      const scrollPos = carousel.scrollLeft;
-      const index = Math.round(scrollPos / itemWidth);
-      
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-      });
+      const itemWidth = items[0].offsetWidth + getGap();
+      const index = Math.round(carousel.scrollLeft / itemWidth);
+      currentIndex = index;
+      updateDots(index);
     });
 
+    // Prev — wraps to last
     prevBtn.addEventListener('click', () => {
-      const itemWidth = items[0].offsetWidth + 32;
-      carousel.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+      if (currentIndex <= 0) {
+        currentIndex = items.length - getVisibleCount();
+      } else {
+        currentIndex--;
+      }
+      scrollToIndex(currentIndex);
     });
 
+    // Next — wraps to first
     nextBtn.addEventListener('click', () => {
-      const itemWidth = items[0].offsetWidth + 32;
-      carousel.scrollBy({ left: itemWidth, behavior: 'smooth' });
+      const maxIndex = items.length - getVisibleCount();
+      if (currentIndex >= maxIndex) {
+        currentIndex = 0;
+      } else {
+        currentIndex++;
+      }
+      scrollToIndex(currentIndex);
     });
   }
 
